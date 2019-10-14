@@ -31,14 +31,23 @@ userSchema.pre("save", function(next) {
     return next();
   }
 
+  // generate salt
   // 10: how complex we want the salt to be
-  bcrypt.genSalt(user.password, salt, (err, hash) => {
+  // salt: our plain text string
+  bcrypt.genSalt(10, (err, salt) => {
     if (err) {
       return next(err);
     }
-    // overwrite plain-text pw with resulted hash & salted pw
-    user.password = hash;
-    next();
+
+    // hash pw with salt
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
+      // overwrite plain-text pw with resulted hash & salted pw
+      user.password = hash;
+      next();
+    });
   });
 });
 
@@ -64,3 +73,4 @@ userSchema.methods.comparePassword = function(candidatePassword) {
 
 // this associates our userSchema with our mongoose library
 mongoose.model("User", userSchema);
+// test commit
