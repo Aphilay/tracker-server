@@ -6,6 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const app = express();
+const requireAuth = require("./middlewares/requireAuth");
 
 // BodyParser is used to handle request as json
 // because express does not recognize json by default
@@ -17,7 +18,8 @@ app.use(authRoutes);
 
 // mongoUri TODO: export this to a
 //separate config file then call config.get('mongoUri')
-const mongoURI = "<ENTER YOUR OWN MONGODB URI HERE>";
+const mongoURI =
+  "mongodb+srv://admin:MongoTracker@tracker-cluster-wiqu8.mongodb.net/test?retryWrites=true&w=majority";
 
 // connect to Mongo using mongoose.
 mongoose.connect(mongoURI, {
@@ -34,9 +36,11 @@ mongoose.connection.on("error", err => {
   console.error("Error connecting to Mongo", err);
 });
 
-// get request no param
-app.get("/", (req, res) => {
-  res.send("Hi There!");
+// default route
+// requireAuth: middleware to check if jwt is valid
+// then access route handler
+app.get("/", requireAuth, (req, res) => {
+  res.send(`Your email: ${req.user.email}`);
 });
 
 // process.env.PORT is the enviroment varible
