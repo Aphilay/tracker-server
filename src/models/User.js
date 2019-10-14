@@ -73,3 +73,4 @@ userSchema.methods.comparePassword = function(candidatePassword) {
 
 // this associates our userSchema with our mongoose library
 mongoose.model("User", userSchema);
+// test commit
