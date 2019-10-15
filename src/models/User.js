@@ -1,4 +1,4 @@
-// This file contains the model for type User
+// This module contains the model for type User
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
@@ -18,9 +18,9 @@ const userSchema = new Schema({
   }
 });
 
-// pre-save hook, this function will run
+// pre-save hook, this function will generate salt and hash pw+salt
 // before we attempt to save it into the DB
-// function declaration instead of arrow func "()=>"
+// used function declaration instead of arrow func "()=>"
 // b/c we want access to the user in context 'this'
 // arrow function inherits 'this' from the context of the file (parent function)
 userSchema.pre("save", function(next) {
@@ -62,7 +62,7 @@ userSchema.methods.comparePassword = function(candidatePassword) {
         return reject(err);
       }
 
-      if (!ismatch) {
+      if (!isMatch) {
         return reject(false);
       }
 
