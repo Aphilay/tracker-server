@@ -2,19 +2,21 @@
 // did not assign this require to anything because we only want this code
 // mongoose.model("User", userSchema); to be "modeled" once
 require("./models/User");
+require("./models/Track");
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const app = express();
 const requireAuth = require("./middlewares/requireAuth");
-
+const trackRoutes = require("./routes/trackRoutes");
 // BodyParser is used to handle request as json
 // because express does not recognize json by default
 // Bodyparser middleware is included in express
 app.use(express.json());
-// our router object inside authRoutes
+// our router object inside authRoutes, trackRoutes
 // now has access to app object
 app.use(authRoutes);
+app.use(trackRoutes);
 
 // mongoUri TODO: export this to a
 //separate config file then call config.get('mongoUri')
