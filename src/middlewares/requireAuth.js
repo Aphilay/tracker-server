@@ -4,6 +4,7 @@
 // uses that id to find the appropriate user in the db
 // then assign the user model to our request object
 // request handler prints information about user and sends it back inside response
+// this module is called upon every request, being used in app.js '/' route
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
