@@ -21,7 +21,7 @@ app.use(trackRoutes);
 // mongoUri TODO: export this to a
 //separate config file then call config.get('mongoUri')
 const mongoURI =
-  "mongodb+srv://admin:MongoTracker@tracker-cluster-wiqu8.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://ADD MONGO DB URL HERE";
 
 // connect to Mongo using mongoose.
 mongoose.connect(mongoURI, {
